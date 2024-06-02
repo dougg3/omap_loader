@@ -436,6 +436,7 @@ bool omap_usb_read(libusb_device_handle * handle, unsigned char * data,
     int actualRead = 0;
     int readAmt = sizeLeft;
 
+    usleep(1000);
     ret = libusb_bulk_transfer(handle, OMAP_USB_BULK_IN, data+iter,
         readAmt, &actualRead, USB_TIMEOUT);
 
@@ -491,6 +492,7 @@ bool omap_usb_write(libusb_device_handle * handle, unsigned char * data,
     int actualWrite = 0;
     int writeAmt = sizeLeft;
 
+    usleep(1000);
     ret = libusb_bulk_transfer(handle, OMAP_USB_BULK_OUT, data+iter,
         writeAmt, &actualWrite, USB_TIMEOUT);
 
