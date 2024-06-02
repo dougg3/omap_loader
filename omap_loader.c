@@ -387,12 +387,10 @@ int process_args(struct arg_state * args)
     goto fail;
   }
 
-  /* Note: this is a race between the target's processor getting X-loader 
-   * running and our processor. If we fail to communicate with the X-loader, 
-   * it's possible that it hasn't been fully initialized. I'm not going to put
-   * some stupid, arbitrary sleep value here. The transfer_other_files function
-   * should be robust enough to handle some errors.
+  /* Wait a moment before attempting to communicate with X-loader. If we don't
+   * wait here, some computers end up failing to upload additional files.
    */
+  usleep(20000);
   
   /* If we are passed one file, assume that the user just wants to
      upload some initial code with no X-loader chaining
