@@ -495,6 +495,8 @@ bool omap_usb_write(libusb_device_handle * handle, unsigned char * data,
   {
     int actualWrite = 0;
     int writeAmt = sizeLeft;
+    /* Only send 512 bytes at a time. Helps with reliability sometimes. */
+    if(writeAmt > 512) { writeAmt = 512; }
 
     usleep(1000);
     ret = libusb_bulk_transfer(handle, OMAP_USB_BULK_OUT, data+iter,
