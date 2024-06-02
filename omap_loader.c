@@ -374,6 +374,12 @@ int process_args(struct arg_state * args)
     return 1;
   }
 
+  if((ret = libusb_claim_interface(dev, 0)) < 0)
+  {
+    log_error("failed to claim interface: %s\n", libusb_error_name(ret));
+    return ret;
+  }
+
   /* Communicate with the TI BootROM directly
       - retrieve ASIC ID
       - start peripheral boot
